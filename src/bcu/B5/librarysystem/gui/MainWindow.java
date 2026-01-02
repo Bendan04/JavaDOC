@@ -22,7 +22,7 @@ import bcu.B5.librarysystem.model.Library;
 
 public class MainWindow extends JFrame implements ActionListener {
 
-    private JMenuBar menuBar;
+	private JMenuBar menuBar;
     private JMenu adminMenu;
     private JMenu booksMenu;
     private JMenu membersMenu;
@@ -175,7 +175,21 @@ public class MainWindow extends JFrame implements ActionListener {
         }
 
         JTable table = new JTable(data, columns); // Setting the columns and data for displaying purposes.
-        
+        table.getSelectionModel().addListSelectionListener(e -> {
+            int row = table.getSelectedRow();
+            Patron patron = patrons.get(row);
+
+            if (!patron.getBooks().isEmpty()) {
+
+                String string = ""; // We need to create the output as a string as the skeleton code outputs the books as a list.
+                for (Book book : patron.getBooks()) { // Enhanced for loop (Pretty much the same as a regular nested loop but more compact.)
+                    string += book.getTitle() + " authored by " + book.getAuthor();
+                }
+
+                JOptionPane.showMessageDialog(MainWindow.this, string, patron.getName() + " books.", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
         this.getContentPane().removeAll(); // Copied and pasted most of these from displayBooks method.
         this.getContentPane().add(new JScrollPane(table));
         this.revalidate();
@@ -199,10 +213,6 @@ public class MainWindow extends JFrame implements ActionListener {
         JTable table = new JTable(data, columns);
         table.getSelectionModel().addListSelectionListener(e -> { // Whenever the selected row changes then call this action. (Listens for changes in selection)
         	
-            if (e.getValueIsAdjusting()) { // Make sure event isn't called twice.
-                return;
-            }
-            
             int row = table.getSelectedRow(); // Making sure the correct row index is selected. 
             
             Book book = booksList.get(row);
@@ -214,6 +224,6 @@ public class MainWindow extends JFrame implements ActionListener {
         });
         this.getContentPane().removeAll();
         this.getContentPane().add(new JScrollPane(table));
-        this.revalidate();
+        this.revalidate();    
     }	
 }
