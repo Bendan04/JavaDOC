@@ -10,6 +10,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import java.io.IOException; // Required imports for both exceptions otherwise application wouldn't run as java doesn't auto import exception types.
+import bcu.B5.librarysystem.main.LibraryException; // ^^^^
+import bcu.B5.librarysystem.data.LibraryData; //Required import as these are in different packages and eclipse is weird.
+import javax.swing.JOptionPane; //Adding option pane as this allows us to check if a book is on loan easily.
+import bcu.B5.librarysystem.model.Patron; // Importing Patron for 6.2
+
 
 import bcu.B5.librarysystem.model.Book;
 import bcu.B5.librarysystem.model.Library;
@@ -115,10 +121,10 @@ public class MainWindow extends JFrame implements ActionListener {
     }	
 
 /* Uncomment the following code to run the GUI version directly from the IDE */
-//    public static void main(String[] args) throws IOException, LibraryException {
-//        Library library = LibraryData.load();
-//        new MainWindow(library);			
-//    }
+    public static void main(String[] args) throws IOException, LibraryException {
+        Library library = LibraryData.load();
+        new MainWindow(library);			
+    }
 
 
 
@@ -142,8 +148,8 @@ public class MainWindow extends JFrame implements ActionListener {
         } else if (ae.getSource() == booksReturn) {
             
             
-        } else if (ae.getSource() == memView) {
-            
+        } else if (ae.getSource() == memView) { // Mem is patrons
+            displayPatrons();
             
         } else if (ae.getSource() == memAdd) {
             
@@ -153,6 +159,28 @@ public class MainWindow extends JFrame implements ActionListener {
             
         }
     }
+    
+    private void displayPatrons() {
+
+        String[] columns = { "Patron ID", "Name", "Email", "Books on Loan"};
+        java.util.List<Patron> patrons = library.getPatrons();
+        Object[][] data = new Object[patrons.size()][4];
+
+        for (int i = 0; i < patrons.size(); i++) { 
+            Patron p = patrons.get(i);
+            data[i][0] = p.getId();
+            data[i][1] = p.getName();
+            data[i][2] = p.getEmail();
+            data[i][3] = p.getBooks().size(); // Getting the amount of books they have on loan and getting the size of the list.
+        }
+
+        JTable table = new JTable(data, columns); // Setting the columns and data for displaying purposes.
+        
+        this.getContentPane().removeAll(); // Copied and pasted most of these from displayBooks method.
+        this.getContentPane().add(new JScrollPane(table));
+        this.revalidate();
+    }
+
 
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
@@ -169,6 +197,21 @@ public class MainWindow extends JFrame implements ActionListener {
         }
 
         JTable table = new JTable(data, columns);
+        table.getSelectionModel().addListSelectionListener(e -> { // Whenever the selected row changes then call this action. (Listens for changes in selection)
+        	
+            if (e.getValueIsAdjusting()) { // Make sure event isn't called twice.
+                return;
+            }
+            
+            int row = table.getSelectedRow(); // Making sure the correct row index is selected. 
+            
+            Book book = booksList.get(row);
+            if (book.isOnLoan()) {
+                JOptionPane.showMessageDialog(
+                    MainWindow.this, book.getLoan().getPatron().getDetailsLong(), "Patron: ", JOptionPane.INFORMATION_MESSAGE // Message pop up.
+                );
+            }
+        });
         this.getContentPane().removeAll();
         this.getContentPane().add(new JScrollPane(table));
         this.revalidate();
