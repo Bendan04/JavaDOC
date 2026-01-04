@@ -152,7 +152,7 @@ public class MainWindow extends JFrame implements ActionListener {
             displayPatrons();
             
         } else if (ae.getSource() == memAdd) {
-            
+            new AddPatronWindow(this);
             
         } else if (ae.getSource() == memDel) {
             
@@ -195,6 +195,9 @@ public class MainWindow extends JFrame implements ActionListener {
         this.revalidate();
     }
 
+    public void showPatrons() { // We have kept displayPatrons private to keep all sensitive information behind closed doors and inaccessible from external sources
+    	displayPatrons();
+    }
 
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
