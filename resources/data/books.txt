@@ -1,3 +1,250 @@
-15::Pride and Prejudice::Jane Austen::1813::T. Egerton::false
-23::Nineteen Eighty-Four::George Orwell::1949::Secker & Warburg::false
-42::The Hitchhiker's Guide to the Galaxy::Douglas Adams::1979::Pan Books::false
+1::To Kill a Mockingbird::Harper Lee::1960::J. B. Lippincott & Co.::false
+2::1984::George Orwell::1949::Secker & Warburg::false
+3::The Great Gatsby::F. Scott Fitzgerald::1925::Charles Scribner's Sons::false
+4::Moby-Dick::Herman Melville::1851::Harper & Brothers::false
+5::War and Peace::Leo Tolstoy::1869::The Russian Messenger::false
+6::Crime and Punishment::Fyodor Dostoevsky::1866::The Russian Messenger::false
+7::The Catcher in the Rye::J. D. Salinger::1951::Little, Brown and Company::false
+8::Pride and Prejudice::Jane Austen::1813::T. Egerton::false
+9::Brave New World::Aldous Huxley::1932::Chatto & Windus::false
+10::The Lord of the Rings::J. R. R. Tolkien::1954::George Allen & Unwin::false
+11::The Hobbit::J. R. R. Tolkien::1937::George Allen & Unwin::false
+12::Jane Eyre::Charlotte Brontë::1847::Smith, Elder & Co.::false
+13::Wuthering Heights::Emily Brontë::1847::Thomas Cautley Newby::false
+14::Fahrenheit 451::Ray Bradbury::1953::Ballantine Books::false
+15::The Chronicles of Narnia::C. S. Lewis::1950::Geoffrey Bles::false
+16::Animal Farm::George Orwell::1945::Secker & Warburg::false
+17::The Picture of Dorian Gray::Oscar Wilde::1890::Lippincott's Monthly Magazine::false
+18::Dracula::Bram Stoker::1897::Archibald Constable and Company::false
+19::Frankenstein::Mary Shelley::1818::Lackington, Hughes, Harding, Mavor & Jones::false
+20::The Grapes of Wrath::John Steinbeck::1939::The Viking Press-James Lloyd::false
+21::Of Mice and Men::John Steinbeck::1937::Covici Friede::false
+22::The Old Man and the Sea::Ernest Hemingway::1952::Charles Scribner's Sons::false
+23::A Tale of Two Cities::Charles Dickens::1859::Chapman & Hall::false
+24::Great Expectations::Charles Dickens::1861::Chapman & Hall::false
+25::Les Misérables::Victor Hugo::1862::A. Lacroix, Verboeckhoven & Cie.::false
+26::The Alchemist::Paulo Coelho::1988::HarperTorch::false
+27::The Hitchhiker's Guide to the Galaxy::Douglas Adams::1979::Pan Books::false
+28::Slaughterhouse-Five::Kurt Vonnegut::1969::Delacorte::false
+29::The Handmaid's Tale::Margaret Atwood::1985::McClelland and Stewart::false
+30::The Da Vinci Code::Dan Brown::2003::Doubleday::false
+31::The Shining::Stephen King::1977::Doubleday::false
+32::It::Stephen King::1986::Viking Press::false
+33::The Name of the Rose::Umberto Eco::1980::Bompiani::false
+34::Life of Pi::Yann Martel::2001::Knopf Canada::false
+35::The Kite Runner::Khaled Hosseini::2003::Riverhead Books::false
+36::The Book Thief::Markus Zusak::2005::Picador::false
+37::The Road::Cormac McCarthy::2006::Alfred A. Knopf::false
+38::The Hunger Games::Suzanne Collins::2008::Scholastic Press::false
+39::Harry Potter and the Philosopher's Stone::J. K. Rowling::1997::Bloomsbury::false
+40::Harry Potter and the Chamber of Secrets::J. K. Rowling::1998::Bloomsbury::false
+41::The Fault in Our Stars::John Green::2012::Dutton Books::false
+42::The Girl with the Dragon Tattoo::Stieg Larsson::2005::Norstedts Förlag::false
+43::Gone Girl::Gillian Flynn::2012::Crown Publishing Group::false
+44::The Martian::Andy Weir::2011::Crown Publishing Group::false
+45::Dune::Frank Herbert::1965::Chilton Books::false
+46::The Color Purple::Alice Walker::1982::Harcourt Brace Jovanovich::false
+47::The Bell Jar::Sylvia Plath::1963::Heinemann::false
+48::Rebecca::Daphne du Maurier::1938::Victor Gollancz Ltd::false
+49::The Sun Also Rises::Ernest Hemingway::1926::Charles Scribner's Sons::false
+50::Lolita::Vladimir Nabokov::1955::Olympia Press::false
+51::The Odyssey::Homer::-800::Ancient Greece::false
+52::The Iliad::Homer::-750::Ancient Greece::false
+53::Don Quixote::Miguel de Cervantes::1605::Francisco de Robles::false
+54::The Divine Comedy::Dante Alighieri::1320::Johannes Numeister::false
+55::Hamlet::William Shakespeare::1603::Nicolas Ling::false
+56::Macbeth::William Shakespeare::1606::Edward Blount::false
+57::King Lear::William Shakespeare::1608::Nathaniel Butter::false
+58::Othello::William Shakespeare::1603::Nicholas Okes::false
+59::The Stranger::Albert Camus::1942::Gallimard::false
+60::The Plague::Albert Camus::1947::Gallimard::false
+61::The Trial::Franz Kafka::1925::Verlag Die Schmiede::false
+62::The Metamorphosis::Franz Kafka::1915::Kurt Wolff Verlag::false
+63::In Search of Lost Time::Marcel Proust::1913::Grasset::false
+64::Ulysses::James Joyce::1922::Sylvia Beach::false
+65::Dubliners::James Joyce::1914::Grant Richards::false
+66::Heart of Darkness::Joseph Conrad::1899::Blackwood's Magazine::false
+67::Lord of the Flies::William Golding::1954::Faber and Faber::false
+68::Catch-22::Joseph Heller::1961::Simon & Schuster::false
+69::The Sound and the Fury::William Faulkner::1929::Jonathan Cape & Harrison Smith::false
+70::As I Lay Dying::William Faulkner::1930::Jonathan Cape & Harrison Smith::false
+71::One Hundred Years of Solitude::Gabriel García Márquez::1967::Harper & Row::false
+72::Love in the Time of Cholera::Gabriel García Márquez::1985::Editorial Oveja Negra::false
+73::The Brothers Karamazov::Fyodor Dostoevsky::1880::The Russian Messenger::false
+74::Anna Karenina::Leo Tolstoy::1877::The Russian Messenger::false
+75::Madame Bovary::Gustave Flaubert::1856::Revue de Paris::false
+76::The Count of Monte Cristo::Alexandre Dumas::1844::Journal des Débats::false
+77::The Three Musketeers::Alexandre Dumas::1844::Le Siècle::false
+78::The Scarlet Letter::Nathaniel Hawthorne::1850::Ticknor, Reed & Fields::false
+79::Walden::Henry David Thoreau::1854::Ticknor and Fields::false
+80::Leaves of Grass::Walt Whitman::1855::Brooklyn Eagle::false
+81::The Adventures of Huckleberry Finn::Mark Twain::1884::Chatto & Windus::false
+82::The Adventures of Tom Sawyer::Mark Twain::1876::American Publishing Company::false
+83::Dr. Jekyll and Mr. Hyde::Robert Louis Stevenson::1886::Longmans, Green & Co.::false
+84::Treasure Island::Robert Louis Stevenson::1883::Cassell & Company::false
+85::The War of the Worlds::H. G. Wells::1898::William Heinemann::false
+86::The Time Machine::H. G. Wells::1895::William Heinemann::false
+87::A Clockwork Orange::Anthony Burgess::1962::William Heinemann::false
+88::The Call of the Wild::Jack London::1903::Macmillan::false
+89::White Fang::Jack London::1906::Macmillan::false
+90::East of Eden::John Steinbeck::1952::Viking Press::false
+91::Invisible Man::Ralph Ellison::1952::Random House::false
+92::Beloved::Toni Morrison::1987::Alfred A. Knopf::false
+93::Song of Solomon::Toni Morrison::1977::Alfred A. Knopf::false
+94::Things Fall Apart::Chinua Achebe::1958::William Heinemann Ltd::false
+95::The God of Small Things::Arundhati Roy::1997::IndiaInk::false
+96::Midnight's Children::Salman Rushdie::1981::Jonathan Cape::false
+97::The Satanic Verses::Salman Rushdie::1988::Viking Penguin::false
+98::The Wind-Up Bird Chronicle::Haruki Murakami::1994::Shinchosha::false
+99::Norwegian Wood::Haruki Murakami::1987::Kodansha::false
+100::Kafka on the Shore::Haruki Murakami::2002::Shinchosha::false
+101::The Left Hand of Darkness::Ursula K. Le Guin::1969::Ace Books::false
+102::The Dispossessed::Ursula K. Le Guin::1974::Harper & Row::false
+103::Foundation::Isaac Asimov::1951::Gnome Press::false
+104::I, Robot::Isaac Asimov::1950::Gnome Press::false
+105::Neuromancer::William Gibson::1984::Ace Books::false
+106::Snow Crash::Neal Stephenson::1992::Bantam Spectra::false
+107::The Stand::Stephen King::1978::Doubleday::false
+108::American Gods::Neil Gaiman::2001::William Morrow::false
+109::Good Omens::Neil Gaiman & Terry Pratchett::1990::Workman Publishing::false
+110::The Giver::Lois Lowry::1993::Houghton Mifflin::false
+111::Ender's Game::Orson Scott Card::1985::Tor Books::false
+112::Do Androids Dream of Electric Sheep?::Philip K. Dick::1968::Doubleday::false
+113::The Man in the High Castle::Philip K. Dick::1962::G. P. Putnam's Sons::false
+114::The Little Prince::Antoine de Saint-Exupéry::1943::Reynal & Hitchcock::false
+115::The Neverending Story::Michael Ende::1979::Thienemann Verlag::false
+116::The Princess Bride::William Goldman::1973::Harcourt Brace Jovanovich::false
+117::The Secret Garden::Frances Hodgson Burnett::1911::Frederick A. Stokes::false
+118::Anne of Green Gables::Lucy Maud Montgomery::1908::L. C. Page & Co.::false
+119::Charlotte's Web::E. B. White::1952::Harper & Brothers::false
+120::Matilda::Roald Dahl::1988::Jonathan Cape::false
+121::The BFG::Roald Dahl::1982::Jonathan Cape::false
+122::The Golden Compass::Philip Pullman::1995::Scholastic Point::false
+123::A Wrinkle in Time::Madeleine L'Engle::1962::Farrar, Straus & Giroux::false
+124::Watership Down::Richard Adams::1972::Rex Collings::false
+125::The Jungle Book::Rudyard Kipling::1894::Macmillan Publishers::false
+126::Kim::Rudyard Kipling::1901::Macmillan Publishers::false
+127::The Outsiders::S. E. Hinton::1967::Viking Press::false
+128::A Separate Peace::John Knowles::1959::Macmillan::false
+129::The Joy Luck Club::Amy Tan::1989::G. P. Putnam's Sons::false
+130::The Lovely Bones::Alice Sebold::2002::Little, Brown and Company::false
+131::The Time Traveler's Wife::Audrey Niffenegger::2003::MacAdam/Cage::false
+132::The Perks of Being a Wallflower::Stephen Chbosky::1999::Pocket Books::false
+133::The Help::Kathryn Stockett::2009::Amy Einhorn Books::false
+134::The Shadow of the Wind::Carlos Ruiz Zafón::2001::Planeta::false
+135::The Pillars of the Earth::Ken Follett::1989::William Morrow::false
+136::The Road Less Traveled::M. Scott Peck::1978::Simon & Schuster::false
+137::The Hand of God::Nelson DeMille::1994::Warner Books::false
+138::The Silent Patient::Alex Michaelides::2019::Celadon Books::false
+139::The Goldfinch::Donna Tartt::2013::Little, Brown and Company::false
+140::The Night Circus::Erin Morgenstern::2011::Doubleday::false
+141::The Book of Negroes::Lawrence Hill::2007::HarperCollins::false
+142::Shantaram::Gregory David Roberts::2003::Scribe Publications::false
+143::The English Patient::Michael Ondaatje::1992::McClelland and Stewart::false
+144::Atonement::Ian McEwan::2001::Jonathan Cape::false
+145::Never Let Me Go::Kazuo Ishiguro::2005::Faber and Faber::false
+146::The Remains of the Day::Kazuo Ishiguro::1989::Faber and Faber::false
+147::Life of Piranesi::Susanna Clarke::2020::Bloomsbury::false
+148::Jonathan Strange & Mr Norrell::Susanna Clarke::2004::Bloomsbury::false
+149::The House of the Spirits::Isabel Allende::1982::Plaza & Janés::false
+150::Blindness::José Saramago::1995::Caminho::false
+151::The Name of the Wind::Patrick Rothfuss::2007::DAW Books::false
+152::The Wise Man's Fear::Patrick Rothfuss::2011::DAW Books::false
+153::Mistborn: The Final Empire::Brandon Sanderson::2006::Tor Books::false
+154::The Well of Ascension::Brandon Sanderson::2007::Tor Books::false
+155::The Hero of Ages::Brandon Sanderson::2008::Tor Books::false
+156::The Way of Kings::Brandon Sanderson::2010::Tor Books::false
+157::Words of Radiance::Brandon Sanderson::2014::Tor Books::false
+158::Oathbringer::Brandon Sanderson::2017::Tor Books::false
+159::The Blade Itself::Joe Abercrombie::2006::Gollancz::false
+160::Before They Are Hanged::Joe Abercrombie::2007::Gollancz::false
+161::Last Argument of Kings::Joe Abercrombie::2008::Gollancz::false
+162::The Lies of Locke Lamora::Scott Lynch::2006::Gollancz::false
+163::Red Rising::Pierce Brown::2014::Del Rey Books::false
+164::Golden Son::Pierce Brown::2015::Del Rey Books::false
+165::Morning Star::Pierce Brown::2016::Del Rey Books::false
+166::The Girl on the Train::Paula Hawkins::2015::Riverhead Books::false
+167::Big Little Lies::Liane Moriarty::2014::Amy Einhorn Books::false
+168::The Da Vinci Code::Dan Brown::2003::Doubleday::false
+169::Angels & Demons::Dan Brown::2000::Pocket Books::false
+170::The Girl Who Drank the Moon::Kelly Barnhill::2016::Algonquin Young Readers::false
+171::The Ocean at the End of the Lane::Neil Gaiman::2013::William Morrow::false
+172::The Graveyard Book::Neil Gaiman::2008::HarperCollins::false
+173::The Stand (Uncut Edition)::Stephen King::1990::Doubleday::false
+174::Carrie::Stephen King::1974::Doubleday::false
+175::Misery::Stephen King::1987::Viking Press::false
+176::Pet Sematary::Stephen King::1983::Doubleday::false
+177::The Exorcist::William Peter Blatty::1971::Harper & Row::false
+178::The Silence of the Lambs::Thomas Harris::1988::St. Martin's Press::false
+179::The Girl with All the Gifts::M. R. Carey::2014::Orbit Books::false
+180::World War Z::Max Brooks::2006::Crown Publishing Group::false
+181::The Passage::Justin Cronin::2010::Ballantine Books::false
+182::The Maze Runner::James Dashner::2009::Delacorte Press::false
+183::Divergent::Veronica Roth::2011::Katherine Tegen Books::false
+184::Insurgent::Veronica Roth::2012::Katherine Tegen Books::false
+185::Allegiant::Veronica Roth::2013::Katherine Tegen Books::false
+186::The Lightning Thief::Rick Riordan::2005::Miramax Books::false
+187::The Sea of Monsters::Rick Riordan::2006::Miramax Books::false
+188::The Titan's Curse::Rick Riordan::2007::Miramax Books::false
+189::The Battle of the Labyrinth::Rick Riordan::2008::Miramax Books::false
+190::The Last Olympian::Rick Riordan::2009::Miramax Books::false
+191::The Curious Incident of the Dog in the Night-Time::Mark Haddon::2003::Jonathan Cape::false
+192::The Lovely War::Julie Berry::2019::Viking Books for Young Readers::false
+193::The Road to Character::David Brooks::2015::Random House::false
+194::Educated::Tara Westover::2018::Random House::false
+195::Sapiens: A Brief History of Humankind::Yuval Noah Harari::2011::Harvill Secker::false
+196::Homo Deus::Yuval Noah Harari::2015::Harvill Secker::false
+197::The Subtle Art of Not Giving a F*ck::Mark Manson::2016::HarperOne::false
+198::Atomic Habits::James Clear::2018::Avery::false
+199::Thinking, Fast and Slow::Daniel Kahneman::2011::Farrar, Straus and Giroux::false
+200::Man's Search for Meaning::Viktor E. Frankl::1946::Beacon Press::false
+201::The Art of War::Sun Tzu::-500::Ancient China::false
+202::Meditations::Marcus Aurelius::180::Ancient Rome::false
+203::The Republic::Plato::-380::Ancient Greece::false
+204::Nicomachean Ethics::Aristotle::-340::Ancient Greece::false
+205::The Prince::Niccolò Machiavelli::1532::Antonio Blado d'Asola::false
+206::Leviathan::Thomas Hobbes::1651::Andrew Crooke::false
+207::The Wealth of Nations::Adam Smith::1776::W. Strahan and T. Cadell::false
+208::On the Origin of Species::Charles Darwin::1859::John Murray::false
+209::Silent Spring::Rachel Carson::1962::Houghton Mifflin::false
+210::Guns, Germs, and Steel::Jared Diamond::1997::W. W. Norton & Company::false
+211::The Selfish Gene::Richard Dawkins::1976::Oxford University Press::false
+212::Cosmos::Carl Sagan::1980::Random House::false
+213::A Brief History of Time::Stephen Hawking::1988::Bantam Dell Publishing Group::false
+214::The Immortal Life of Henrietta Lacks::Rebecca Skloot::2010::Crown Publishing Group::false
+215::The Wright Brothers::David McCullough::2015::Simon & Schuster::false
+216::Team of Rivals::Doris Kearns Goodwin::2005::Simon & Schuster::false
+217::The Diary of a Young Girl::Anne Frank::1947::Contact Publishing::false
+218::Night::Elie Wiesel::1956::Les Éditions de Minuit::false
+219::Long Walk to Freedom::Nelson Mandela::1994::Little, Brown and Company::false
+220::The Autobiography of Malcolm X::Malcolm X::1965::Grove Press::false
+221::I Know Why the Caged Bird Sings::Maya Angelou::1969::Random House::false
+222::The Glass Castle::Jeannette Walls::2005::Scribner::false
+223::Eat, Pray, Love::Elizabeth Gilbert::2006::Viking Press::false
+224::Wild::Cheryl Strayed::2012::Knopf::false
+225::Into the Wild::Jon Krakauer::1996::Villard::false
+226::Into Thin Air::Jon Krakauer::1997::Villard::false
+227::The Devil in the White City::Erik Larson::2003::Crown Publishing Group::false
+228::The Nightingale::Kristin Hannah::2015::St. Martin's Press::false
+229::All the Light We Cannot See::Anthony Doerr::2014::Scribner::false
+230::The Help::Kathryn Stockett::2009::Amy Einhorn Books::false
+231::The Shack::William P. Young::2007::Windblown Media::false
+232::The Fault in Our Stars::John Green::2012::Dutton Books::false
+233::Looking for Alaska::John Green::2005::Dutton Juvenile::false
+234::Paper Towns::John Green::2008::Dutton Juvenile::false
+235::The Song of Achilles::Madeline Miller::2011::Ecco Press::false
+236::Circe::Madeline Miller::2018::Little, Brown and Company::false
+237::The Road Back::Erich Maria Remarque::1931::Little, Brown and Company::false
+238::The Catch-22 Companion::Joseph Heller::1974::Simon & Schuster::false
+239::The Sun and Her Flowers::Rupi Kaur::2017::Andrews McMeel Publishing::false
+240::Milk and Honey::Rupi Kaur::2014::Andrews McMeel Publishing::false
+241::The Book of Joy::Dalai Lama & Desmond Tutu::2016::Avery::false
+242::The Alchemist's Daughter::Katharine McMahon::2007::Dial Press::false
+243::The House in the Cerulean Sea::T. J. Klune::2020::Tor Books::false
+244::The Midnight Library::Matt Haig::2020::Canongate Books::false
+245::Station Eleven::Emily St. John Mandel::2014::Knopf::false
+246::The Leftovers::Tom Perrotta::2011::St. Martin's Press::false
+247::The Power::Naomi Alderman::2016::Viking Press::false
+248::The Girl with the Louding Voice::Abi Daré::2020::Sceptre::false
+249::The Underground Railroad::Colson Whitehead::2016::Doubleday::false
+250::Normal People::Sally Rooney::2018::Faber and Faber::false
