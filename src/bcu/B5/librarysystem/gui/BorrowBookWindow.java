@@ -22,10 +22,10 @@ import javax.swing.*;
 
 public class BorrowBookWindow extends JFrame implements ActionListener {
 
-    private MainWindow mw;
+    private MainWindow mw; // reference to main window for accessing shared library state and UI refresh
 
-    private JComboBox<Patron> patronDropdown = new JComboBox<>();
-    private JComboBox<Book> bookDropdown = new JComboBox<>();
+    private JComboBox<Patron> patronDropdown = new JComboBox<>(); // displays available patrons for borrowing
+    private JComboBox<Book> bookDropdown = new JComboBox<>(); // displays currently available (not on loan) books
 
     private JButton borrowBtn = new JButton("Borrow");
     private JButton cancelBtn = new JButton("Cancel");
@@ -40,8 +40,8 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
     private void initialize() {
 
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {}
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // match OS look-and-feel for consistency
+        } catch (Exception ex) {} // look-and-feel failure is non-critical
 
         setTitle("Borrow Book");
         setSize(450, 200);
@@ -59,7 +59,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         bottomPanel.add(borrowBtn);
         bottomPanel.add(cancelBtn);
 
-        borrowBtn.addActionListener(this);
+        borrowBtn.addActionListener(this); // single listener handles both buttons
         cancelBtn.addActionListener(this);
 
         this.getContentPane().add(topPanel, BorderLayout.CENTER);
@@ -70,10 +70,10 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
     }
 
     private void populatePatronDropdown() {
-        patronDropdown.removeAllItems();
+        patronDropdown.removeAllItems(); // ensure dropdown reflects current library state
 
         List<Patron> patrons = mw.getLibrary().getPatrons().stream()
-            .sorted(Comparator.comparing(Patron::getName, String.CASE_INSENSITIVE_ORDER))
+            .sorted(Comparator.comparing(Patron::getName, String.CASE_INSENSITIVE_ORDER)) // alphabetical ordering
             .collect(Collectors.toList());
 
         for (Patron p : patrons) {
@@ -82,11 +82,11 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
     }
 
     private void populateBookDropdown() {
-        bookDropdown.removeAllItems();
+        bookDropdown.removeAllItems(); // clear stale entries after previous operations
 
         List<Book> books = mw.getLibrary().getBooks().stream()
-            .filter(b -> !b.isOnLoan()) // available books only
-            .sorted(Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER))
+            .filter(b -> !b.isOnLoan()) // only books not currently borrowed
+            .sorted(Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER)) // alphabetical ordering
             .collect(Collectors.toList());
 
         for (Book b : books) {
@@ -97,18 +97,18 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == borrowBtn) {
-            borrowSelectedBook();
+            borrowSelectedBook(); // ..
         } else if (ae.getSource() == cancelBtn) {
-            this.setVisible(false);
+            this.setVisible(false); // close without modifying state
         }
     }
 
     private void borrowSelectedBook() {
 
-        Patron patron = (Patron) patronDropdown.getSelectedItem();
-        Book book = (Book) bookDropdown.getSelectedItem();
+        Patron patron = (Patron) patronDropdown.getSelectedItem(); 
+        Book book = (Book) bookDropdown.getSelectedItem(); 
 
-        if (patron == null || book == null) {
+        if (patron == null || book == null) { 
             JOptionPane.showMessageDialog(
                 this,
                 "Please select both a patron and a book.",
@@ -118,16 +118,16 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
             return;
         }
 
-        Library snapshot = mw.getLibrary().copy();
+        Library snapshot = mw.getLibrary().copy(); // defensive copy for rollback on failure
 
         try {
-            Command borrow = new BorrowBook(patron.getId(), book.getId());
-            borrow.execute(mw.getLibrary(), LocalDate.now());
+            Command borrow = new BorrowBook(patron.getId(), book.getId()); // encapsulates borrow operation
+            borrow.execute(mw.getLibrary(), LocalDate.now()); // execute with current date for audit consistency
 
-            LibraryData.store(mw.getLibrary());
+            LibraryData.store(mw.getLibrary()); // persist state only after successful command
 
-            mw.displayBooks();
-            mw.showPatrons();
+            mw.displayBooks(); // refresh book availability
+            mw.showPatrons(); // refresh patron loan counts/status
             this.setVisible(false);
 
             JOptionPane.showMessageDialog(
@@ -138,7 +138,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
             );
 
         } catch (IOException ioEx) {
-            mw.setLibrary(snapshot);
+            mw.setLibrary(snapshot); // restore previous state if persistence fails
 
             JOptionPane.showMessageDialog(
                 this,
@@ -150,7 +150,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(
                 this,
-                ex.getMessage(),
+                ex.getMessage(), // 
                 "Error",
                 JOptionPane.ERROR_MESSAGE
             );

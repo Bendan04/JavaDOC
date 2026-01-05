@@ -27,6 +27,6 @@ public class DeleteBook implements Command {
             throw new LibraryException("Cannot delete a book that is currently on loan.");
         }
 
-        book.setDeleted(true);
+        book.setDeleted(true); // Soft deleted
     }
 }

@@ -4,8 +4,8 @@ import bcu.B5.librarysystem.commands.Command;
 import bcu.B5.librarysystem.commands.DeleteBook;
 import bcu.B5.librarysystem.data.LibraryData;
 import bcu.B5.librarysystem.main.LibraryException;
-import bcu.B5.librarysystem.model.Book;
 import bcu.B5.librarysystem.model.Library;
+import bcu.B5.librarysystem.model.Book;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,13 +15,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.*;
 
 public class DeleteBookWindow extends JFrame implements ActionListener {
 
-    private MainWindow mw;
+    private MainWindow mw; // reference to the main application window
 
     private JComboBox<Book> bookDropdown = new JComboBox<>();
 
@@ -38,7 +37,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {}
+        } catch (Exception ex) {} // ignore look-and-feel errors
 
         setTitle("Delete Book");
         setSize(500, 160);
@@ -65,10 +64,11 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
     private void populateDropdown() {
         bookDropdown.removeAllItems();
 
-        List<Book> books = mw.getLibrary().getBooks().stream()
+        List<Book> books = mw.getLibrary().getBooks()
+            .stream()
             .filter(b -> !b.isDeleted())
             .sorted(Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER))
-            .collect(Collectors.toList());
+            .toList();
 
         for (Book b : books) {
             bookDropdown.addItem(b);
@@ -98,7 +98,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
             return;
         }
 
-        Library snapshot = mw.getLibrary().copy();
+        Library snapshot = mw.getLibrary().copy(); // backup for rollback
 
         try {
             Command delete = new DeleteBook(selected.getId());
@@ -117,7 +117,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
             );
 
         } catch (IOException ioEx) {
-            mw.setLibrary(snapshot);
+            mw.setLibrary(snapshot); // rollback on storage failure
 
             JOptionPane.showMessageDialog(
                 this,

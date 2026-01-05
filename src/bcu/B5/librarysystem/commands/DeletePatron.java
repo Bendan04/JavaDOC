@@ -27,6 +27,6 @@ public class DeletePatron implements Command {
             throw new LibraryException("Cannot delete a patron with books currently on loan.");
         }
 
-        patron.setDeleted(true);
+        patron.setDeleted(true); // Soft deleted
     }
 }

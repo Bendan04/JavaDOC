@@ -35,14 +35,14 @@ public class BookDataManager implements DataManager {
                     String year = parts[3].trim();
                     String publisher = parts[4].trim();
 
-                    // NEW: deleted flag (optional for backwards compatibility)
+                    //deleted flag backwards compatible
                     boolean deleted = false;
                     if (parts.length >= 6) {
                         deleted = Boolean.parseBoolean(parts[5].trim());
                     }
 
                     Book book = new Book(id, title, author, year, publisher);
-                    book.setDeleted(deleted); // 👈 soft delete flag
+                    book.setDeleted(deleted); //soft delete flag
                     library.addBook(book);
 
                 } catch (Exception ex) {
@@ -60,14 +60,14 @@ public class BookDataManager implements DataManager {
     public void storeData(Library library) throws IOException {
         try (PrintWriter out = new PrintWriter(new FileWriter(RESOURCE))) {
 
-            // IMPORTANT: write ALL books, including deleted ones
-            for (Book book : library.getBooks()) {
+            // All books (including del) are written to .txt file
+            for (Book book : library.getAllBooks()) {
                 out.print(book.getId() + "::");
                 out.print(book.getTitle() + "::");
                 out.print(book.getAuthor() + "::");
                 out.print(book.getPublicationYear() + "::");
                 out.print(book.getPublisher() + "::");
-                out.print(book.isDeleted()); // 👈 persist deleted flag
+                out.print(book.isDeleted()); // deleted flag
                 out.println();
             }
         }

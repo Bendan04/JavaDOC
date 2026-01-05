@@ -3,24 +3,24 @@ package bcu.B5.librarysystem.gui;
 import bcu.B5.librarysystem.commands.Command;
 import bcu.B5.librarysystem.commands.DeletePatron;
 import bcu.B5.librarysystem.data.LibraryData;
-import bcu.B5.librarysystem.main.LibraryException;
-import bcu.B5.librarysystem.model.Library;
-import bcu.B5.librarysystem.model.Patron;
+import bcu.B5.librarysystem.main.LibraryException; 
+import bcu.B5.librarysystem.model.Library; 
+import bcu.B5.librarysystem.model.Patron; 
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.awt.GridLayout; 
+import java.awt.event.ActionEvent; 
+import java.awt.event.ActionListener; 
+import java.io.IOException; 
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Comparator; 
+import java.util.List; 
 
-import javax.swing.*;
+import javax.swing.*; 
 
 public class DeletePatronWindow extends JFrame implements ActionListener {
 
-    private MainWindow mw;
+    private MainWindow mw; // reference to the main application window
 
     private JComboBox<Patron> patronDropdown = new JComboBox<>();
 
@@ -37,12 +37,12 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {}
+        } catch (Exception ex) {} // ignore look-and-feel errors
 
         setTitle("Delete Patron");
-        setSize(400, 160);
+        setSize(500, 160);
 
-        JPanel topPanel = new JPanel(new GridLayout(1, 2));
+        JPanel topPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         topPanel.add(new JLabel("Select patron:"));
         topPanel.add(patronDropdown);
 
@@ -67,7 +67,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         List<Patron> patrons = mw.getLibrary().getPatrons()
             .stream()
             .sorted(Comparator.comparing(Patron::getName, String.CASE_INSENSITIVE_ORDER))
-            .toList(); // creates a sorted copy
+            .toList();
 
         for (Patron p : patrons) {
             patronDropdown.addItem(p);
@@ -97,7 +97,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
             return;
         }
 
-        Library snapshot = mw.getLibrary().copy();
+        Library snapshot = mw.getLibrary().copy(); // backup for rollback
 
         try {
             Command delete = new DeletePatron(selected.getId());
@@ -116,7 +116,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
             );
 
         } catch (IOException ioEx) {
-            mw.setLibrary(snapshot);
+            mw.setLibrary(snapshot); // rollback on storage failure
 
             JOptionPane.showMessageDialog(
                 this,

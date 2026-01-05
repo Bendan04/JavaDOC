@@ -21,6 +21,14 @@ public class Library {
             .toList();
     }
 
+    public Collection<Book> getAllBooks() {
+        return books.values();
+    }
+
+    public Collection<Patron> getAllPatrons() {
+        return patrons.values();
+    }
+
     public Book getBookByID(int id) throws LibraryException {
         if (!books.containsKey(id)) {
             throw new LibraryException("There is no such book with that ID.");
