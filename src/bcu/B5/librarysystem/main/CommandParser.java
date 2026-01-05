@@ -16,6 +16,8 @@ import bcu.B5.librarysystem.commands.ShowPatron;
 import bcu.B5.librarysystem.commands.BorrowBook;
 import bcu.B5.librarysystem.commands.ReturnBook;
 import bcu.B5.librarysystem.commands.RenewBook;
+import bcu.B5.librarysystem.commands.DeleteBook;
+import bcu.B5.librarysystem.commands.DeletePatron;
 
 public class CommandParser {
     
@@ -60,10 +62,12 @@ public class CommandParser {
             } else if (parts.length == 2) {
                 int id = Integer.parseInt(parts[1]);
 
-                if (cmd.equals("showbook")) {
-                    
+                if (cmd.equals("deletebook")) {
+                    return new DeleteBook(id);
                 } else if (cmd.equals("showpatron")) {
                     return new ShowPatron(id);
+                } else if (cmd.equals("deletepatron")) {
+                    return new DeletePatron(id);
                 }
             } else if (parts.length == 3) {
                 int patronID = Integer.parseInt(parts[1]);

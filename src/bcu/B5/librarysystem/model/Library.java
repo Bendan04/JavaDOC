@@ -7,6 +7,7 @@ import bcu.B5.librarysystem.main.LibraryException;
 public class Library {
     
     private final int loanPeriod = 7;
+    private final int maxLoansPerPatron = 2;
     private final Map<Integer, Patron> patrons = new TreeMap<>();
     private final Map<Integer, Book> books = new TreeMap<>();
 
@@ -15,8 +16,9 @@ public class Library {
     }
 
     public List<Book> getBooks() {
-        List<Book> out = new ArrayList<>(books.values());
-        return Collections.unmodifiableList(out);
+        return books.values().stream()
+            .filter(b -> !b.isDeleted())
+            .toList();
     }
 
     public Book getBookByID(int id) throws LibraryException {
@@ -47,10 +49,15 @@ public class Library {
         patrons.put(patron.getId(), patron);
     }
     public List<Patron> getPatrons() {
-        List<Patron> out = new ArrayList<>(patrons.values());
-        return Collections.unmodifiableList(out);
+        return patrons.values().stream()
+            .filter(p -> !p.isDeleted())
+            .toList();
     }
-    
+
+    public int getMaxLoansPerPatron() {
+        return maxLoansPerPatron;
+    }
+
     public Library copy() {
         Library copy = new Library();
 

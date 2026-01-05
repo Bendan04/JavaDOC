@@ -12,6 +12,7 @@ public class Patron {
     private String name;
     private String phone;
     private String email;
+    private boolean deleted = false;
     private final List<Book> books = new ArrayList<>();
     
     public Patron(int id, String name, String phone, String email) {
@@ -23,6 +24,22 @@ public class Patron {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public void delete() {
+        this.deleted = true;
+    }
+
+    public boolean hasBooksOnLoan() {
+        return !books.isEmpty();
     }
 
     public String getName() {
@@ -101,6 +118,11 @@ public class Patron {
             this.getPhone(),
             this.getEmail()
         );
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " (ID: " + getId() + ")";
     }
 
 }

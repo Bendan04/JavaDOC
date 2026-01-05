@@ -11,6 +11,7 @@ public class Book {
     private String author;
     private String publicationYear;
     private String publisher;
+    private boolean deleted = false;
 
     private Loan loan;
 
@@ -20,6 +21,18 @@ public class Book {
         this.author = author;
         this.publicationYear = publicationYear;
         this.publisher = publisher;
+    }
+
+    public void delete() {
+        this.deleted = true;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public int getId() {
@@ -120,6 +133,10 @@ public class Book {
             this.getPublisher(),
             this.getPublicationYear()
         );
+    }
+    @Override
+    public String toString() {
+        return getTitle() + " (ID: " + getId() + ")";
     }
 
 }

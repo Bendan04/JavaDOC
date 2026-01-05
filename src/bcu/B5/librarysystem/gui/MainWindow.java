@@ -1,4 +1,5 @@
 package bcu.B5.librarysystem.gui;
+import bcu.B5.librarysystem.gui.DeletePatronWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +47,7 @@ public class MainWindow extends JFrame implements ActionListener {
         initialize();
         this.library = library;
     } 
-    
+
     public void setLibrary(Library library) {
         this.library = library;
     }
@@ -144,10 +145,10 @@ public class MainWindow extends JFrame implements ActionListener {
             new AddBookWindow(this);
             
         } else if (ae.getSource() == booksDel) {
-            
+            new DeleteBookWindow(this);
             
         } else if (ae.getSource() == booksIssue) {
-            
+            new BorrowBookWindow(this);
             
         } else if (ae.getSource() == booksReturn) {
             
@@ -159,8 +160,8 @@ public class MainWindow extends JFrame implements ActionListener {
             new AddPatronWindow(this);
             
         } else if (ae.getSource() == memDel) {
-            
-            
+            new DeletePatronWindow(this);
+
         }
     }
     
@@ -187,7 +188,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
                 String string = ""; // We need to create the output as a string as the skeleton code outputs the books as a list.
                 for (Book book : patron.getBooks()) { // Enhanced for loop (Pretty much the same as a regular nested loop but more compact.)
-                    string += book.getTitle() + " authored by " + book.getAuthor();
+                    string += book.getTitle() + " authored by " + book.getAuthor() + "\n";
                 }
 
                 JOptionPane.showMessageDialog(MainWindow.this, string, patron.getName() + " books.", JOptionPane.INFORMATION_MESSAGE);
