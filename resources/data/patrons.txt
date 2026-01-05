@@ -1,3 +1,3 @@
-1::Abdel-Rahman Tawil::07555555555::email::
-2::Kostas Vlachos::07596454545::email::
-3::kai::721345::email::
+1::Abdel-Rahman Tawil::07555555555::email.com::
+2::Kostas Vlachos::07596454545::email.at::
+3::kai::721345::email.so::
