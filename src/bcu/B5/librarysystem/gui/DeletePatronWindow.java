@@ -13,8 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.*;
 
@@ -22,7 +22,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 
     private MainWindow mw;
 
-    private JTextField searchField = new JTextField();
     private JComboBox<Patron> patronDropdown = new JComboBox<>();
 
     private JButton deleteBtn = new JButton("Delete");
@@ -31,7 +30,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
     public DeletePatronWindow(MainWindow mw) {
         this.mw = mw;
         initialize();
-        updateDropdown("");
+        populateDropdown();
     }
 
     private void initialize() {
@@ -41,11 +40,9 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         } catch (Exception ex) {}
 
         setTitle("Delete Patron");
-        setSize(400, 180);
+        setSize(400, 160);
 
-        JPanel topPanel = new JPanel(new GridLayout(3, 2));
-        topPanel.add(new JLabel("Search name:"));
-        topPanel.add(searchField);
+        JPanel topPanel = new JPanel(new GridLayout(1, 2));
         topPanel.add(new JLabel("Select patron:"));
         topPanel.add(patronDropdown);
 
@@ -53,18 +50,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         bottomPanel.add(new JLabel(" "));
         bottomPanel.add(deleteBtn);
         bottomPanel.add(cancelBtn);
-
-        searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                updateDropdown(searchField.getText());
-            }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                updateDropdown(searchField.getText());
-            }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                updateDropdown(searchField.getText());
-            }
-        });
 
         deleteBtn.addActionListener(this);
         cancelBtn.addActionListener(this);
@@ -76,14 +61,15 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private void updateDropdown(String filter) {
+    private void populateDropdown() {
         patronDropdown.removeAllItems();
 
-        List<Patron> matches = mw.getLibrary().getPatrons().stream()
-            .filter(p -> p.getName().toLowerCase().contains(filter.toLowerCase()))
-            .collect(Collectors.toList());
+        List<Patron> patrons = mw.getLibrary().getPatrons()
+            .stream()
+            .sorted(Comparator.comparing(Patron::getName, String.CASE_INSENSITIVE_ORDER))
+            .toList(); // creates a sorted copy
 
-        for (Patron p : matches) {
+        for (Patron p : patrons) {
             patronDropdown.addItem(p);
         }
     }
@@ -111,14 +97,12 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
             return;
         }
 
-        // Snapshot for rollback
         Library snapshot = mw.getLibrary().copy();
 
         try {
             Command delete = new DeletePatron(selected.getId());
             delete.execute(mw.getLibrary(), LocalDate.now());
 
-            // Immediate persistence (Option A)
             LibraryData.store(mw.getLibrary());
 
             mw.showPatrons();

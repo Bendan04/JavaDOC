@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
 
     private MainWindow mw;
 
-    private JTextField searchField = new JTextField();
     private JComboBox<Book> bookDropdown = new JComboBox<>();
 
     private JButton deleteBtn = new JButton("Delete");
@@ -31,7 +31,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
     public DeleteBookWindow(MainWindow mw) {
         this.mw = mw;
         initialize();
-        updateDropdown("");
+        populateDropdown();
     }
 
     private void initialize() {
@@ -41,12 +41,9 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         } catch (Exception ex) {}
 
         setTitle("Delete Book");
+        setSize(500, 160);
 
-        setSize(500, 200);
-
-        JPanel topPanel = new JPanel(new GridLayout(3, 2));
-        topPanel.add(new JLabel("Search title:"));
-        topPanel.add(searchField);
+        JPanel topPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         topPanel.add(new JLabel("Select book:"));
         topPanel.add(bookDropdown);
 
@@ -54,18 +51,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         bottomPanel.add(new JLabel(" "));
         bottomPanel.add(deleteBtn);
         bottomPanel.add(cancelBtn);
-
-        searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                updateDropdown(searchField.getText());
-            }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                updateDropdown(searchField.getText());
-            }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                updateDropdown(searchField.getText());
-            }
-        });
 
         deleteBtn.addActionListener(this);
         cancelBtn.addActionListener(this);
@@ -77,15 +62,15 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private void updateDropdown(String filter) {
+    private void populateDropdown() {
         bookDropdown.removeAllItems();
 
-        List<Book> matches = mw.getLibrary().getBooks().stream()
+        List<Book> books = mw.getLibrary().getBooks().stream()
             .filter(b -> !b.isDeleted())
-            .filter(b -> b.getTitle().toLowerCase().contains(filter.toLowerCase()))
+            .sorted(Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
 
-        for (Book b : matches) {
+        for (Book b : books) {
             bookDropdown.addItem(b);
         }
     }
@@ -119,7 +104,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
             Command delete = new DeleteBook(selected.getId());
             delete.execute(mw.getLibrary(), LocalDate.now());
 
-            // Immediate persistence
             LibraryData.store(mw.getLibrary());
 
             mw.displayBooks();

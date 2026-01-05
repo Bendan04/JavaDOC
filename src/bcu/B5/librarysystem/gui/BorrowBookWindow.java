@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,12 +24,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
 
     private MainWindow mw;
 
-    // Patron search
-    private JTextField patronSearchField = new JTextField();
     private JComboBox<Patron> patronDropdown = new JComboBox<>();
-
-    // Book search
-    private JTextField bookSearchField = new JTextField();
     private JComboBox<Book> bookDropdown = new JComboBox<>();
 
     private JButton borrowBtn = new JButton("Borrow");
@@ -37,8 +33,8 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
     public BorrowBookWindow(MainWindow mw) {
         this.mw = mw;
         initialize();
-        updatePatronDropdown("");
-        updateBookDropdown("");
+        populatePatronDropdown();
+        populateBookDropdown();
     }
 
     private void initialize() {
@@ -48,17 +44,13 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         } catch (Exception ex) {}
 
         setTitle("Borrow Book");
-        setSize(450, 240);
+        setSize(450, 200);
 
-        JPanel topPanel = new JPanel(new GridLayout(4, 2));
+        JPanel topPanel = new JPanel(new GridLayout(2, 2, 10, 10));
 
-        topPanel.add(new JLabel("Search patron:"));
-        topPanel.add(patronSearchField);
         topPanel.add(new JLabel("Select patron:"));
         topPanel.add(patronDropdown);
 
-        topPanel.add(new JLabel("Search book:"));
-        topPanel.add(bookSearchField);
         topPanel.add(new JLabel("Select book:"));
         topPanel.add(bookDropdown);
 
@@ -66,30 +58,6 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         bottomPanel.add(new JLabel(" "));
         bottomPanel.add(borrowBtn);
         bottomPanel.add(cancelBtn);
-
-        patronSearchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                updatePatronDropdown(patronSearchField.getText());
-            }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                updatePatronDropdown(patronSearchField.getText());
-            }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                updatePatronDropdown(patronSearchField.getText());
-            }
-        });
-
-        bookSearchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                updateBookDropdown(bookSearchField.getText());
-            }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                updateBookDropdown(bookSearchField.getText());
-            }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                updateBookDropdown(bookSearchField.getText());
-            }
-        });
 
         borrowBtn.addActionListener(this);
         cancelBtn.addActionListener(this);
@@ -101,27 +69,27 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private void updatePatronDropdown(String filter) {
+    private void populatePatronDropdown() {
         patronDropdown.removeAllItems();
 
-        List<Patron> matches = mw.getLibrary().getPatrons().stream()
-            .filter(p -> p.getName().toLowerCase().contains(filter.toLowerCase()))
+        List<Patron> patrons = mw.getLibrary().getPatrons().stream()
+            .sorted(Comparator.comparing(Patron::getName, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
 
-        for (Patron p : matches) {
+        for (Patron p : patrons) {
             patronDropdown.addItem(p);
         }
     }
 
-    private void updateBookDropdown(String filter) {
+    private void populateBookDropdown() {
         bookDropdown.removeAllItems();
 
-        List<Book> matches = mw.getLibrary().getBooks().stream()
-            .filter(b -> !b.isOnLoan()) // only available books
-            .filter(b -> b.getTitle().toLowerCase().contains(filter.toLowerCase()))
+        List<Book> books = mw.getLibrary().getBooks().stream()
+            .filter(b -> !b.isOnLoan()) // available books only
+            .sorted(Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
 
-        for (Book b : matches) {
+        for (Book b : books) {
             bookDropdown.addItem(b);
         }
     }
@@ -150,14 +118,12 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
             return;
         }
 
-        // Snapshot for rollback
         Library snapshot = mw.getLibrary().copy();
 
         try {
             Command borrow = new BorrowBook(patron.getId(), book.getId());
             borrow.execute(mw.getLibrary(), LocalDate.now());
 
-            // Immediate persistence (Option A)
             LibraryData.store(mw.getLibrary());
 
             mw.displayBooks();
