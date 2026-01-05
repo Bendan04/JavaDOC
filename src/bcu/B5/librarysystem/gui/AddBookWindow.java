@@ -94,7 +94,6 @@ public class AddBookWindow extends JFrame implements ActionListener {
     }
 
     private void addBook() {
-        // Snapshot the current state (books list)
         List<Book> before = new ArrayList<>(mw.getLibrary().getBooks());
 
         try {
@@ -102,8 +101,6 @@ public class AddBookWindow extends JFrame implements ActionListener {
             String author = authText.getText();
             String publicationYear = pubDateText.getText();
             String publisher = publisherText.getText();
-
-            // create and execute the AddBook Command
             Command addBook = new AddBook(title, author, publicationYear, publisher);
             addBook.execute(mw.getLibrary(), LocalDate.now());
 
@@ -113,11 +110,10 @@ public class AddBookWindow extends JFrame implements ActionListener {
             // refresh the view with the list of books
             mw.displayBooks();
 
-            // hide (close) the AddBookWindow
             this.setVisible(false);
 
         } catch (IOException ioEx) {
-            // rollback to previous state
+            // roll back to previous state
             mw.getLibrary().getBooks().clear();
             mw.getLibrary().getBooks().addAll(before);
 

@@ -23,16 +23,14 @@ public class BorrowBook implements Command {
         Patron patron = library.getPatronByID(patronId);
         Book book = library.getBookByID(bookId);
 
-        // 7.3 – Enforce maximum loan limit
-        if (patron.getBooks().size() >= library.getMaxLoansPerPatron()) {
+        if (patron.getBooks().size() >= library.getMaxLoansPerPatron()) { // 7.3 – Enforce maximum loan limit
             throw new LibraryException(
                 "Patron has reached the maximum number of borrowed books (" +
                 library.getMaxLoansPerPatron() + ")."
             );
         }
 
-        // Prevent borrowing deleted entities (important with 7.1 / 7.2)
-        if (patron.isDeleted()) {
+        if (patron.isDeleted()) { // Prevent borrowing deleted entities (important with 7.1 / 7.2)
             throw new LibraryException("Cannot borrow books for a deleted patron.");
         }
 

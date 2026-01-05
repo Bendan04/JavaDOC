@@ -107,12 +107,7 @@ public class AddPatronWindow extends JFrame implements ActionListener {
             String email = emailText.getText();
 
             if (!validEmail(email)) {
-                JOptionPane.showMessageDialog(
-                    this,
-                    "Please enter a valid email address.",
-                    "Invalid Email",
-                    JOptionPane.ERROR_MESSAGE
-                );
+                JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Invalid Email", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
