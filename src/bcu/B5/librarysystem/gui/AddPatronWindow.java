@@ -14,9 +14,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.io.IOException;
+
+import bcu.B5.librarysystem.data.LibraryData;
+import bcu.B5.librarysystem.model.Patron;
+
 import bcu.B5.librarysystem.commands.AddPatron;
 import bcu.B5.librarysystem.commands.Command;
 import bcu.B5.librarysystem.main.LibraryException;
+import bcu.B5.librarysystem.model.Library;
+
 
 public class AddPatronWindow extends JFrame implements ActionListener {
 
@@ -88,24 +97,48 @@ public class AddPatronWindow extends JFrame implements ActionListener {
     }
 
     private void addPatron() {
+
+        // Snapshot entire library (safe rollback)
+        Library before = mw.getLibrary().copy();
+
         try {
             String name = nameText.getText();
             String phone = phoneText.getText();
             String email = emailText.getText();
 
             if (!validEmail(email)) {
-                JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Invalid Email", JOptionPane.ERROR_MESSAGE); // Adding validation to email
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter a valid email address.",
+                    "Invalid Email",
+                    JOptionPane.ERROR_MESSAGE
+                );
                 return;
             }
 
             Command addPatron = new AddPatron(name, phone, email);
             addPatron.execute(mw.getLibrary(), LocalDate.now());
 
-            mw.showPatrons(); // Please review MainWindow.java line 198 for explination
+            // Attempt to persist
+            LibraryData.store(mw.getLibrary());
+
+            mw.showPatrons();
             this.setVisible(false);
+
+        } catch (IOException ioEx) {
+            // Rollback entire system state
+            mw.setLibrary(before);
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Failed to save data to file.\nChanges were rolled back.",
+                "Storage Error",
+                JOptionPane.ERROR_MESSAGE
+            );
 
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 }

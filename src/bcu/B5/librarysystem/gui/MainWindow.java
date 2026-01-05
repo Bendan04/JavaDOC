@@ -47,6 +47,10 @@ public class MainWindow extends JFrame implements ActionListener {
         this.library = library;
     } 
     
+    public void setLibrary(Library library) {
+        this.library = library;
+    }
+    
     public Library getLibrary() {
         return library;
     }
@@ -202,15 +206,16 @@ public class MainWindow extends JFrame implements ActionListener {
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
         // headers for the table
-        String[] columns = new String[]{"Title", "Author", "Pub Date", "Status"};
+        String[] columns = new String[]{"Title", "Author", "Publisher", "Pub Date", "Status"};
 
         Object[][] data = new Object[booksList.size()][6];
         for (int i = 0; i < booksList.size(); i++) {
             Book book = booksList.get(i);
             data[i][0] = book.getTitle();
             data[i][1] = book.getAuthor();
-            data[i][2] = book.getPublicationYear();
-            data[i][3] = book.getStatus();
+            data[i][2] = book.getPublisher();
+            data[i][3] = book.getPublicationYear();
+            data[i][4] = book.getStatus();
         }
 
         JTable table = new JTable(data, columns);

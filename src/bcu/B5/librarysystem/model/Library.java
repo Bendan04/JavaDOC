@@ -50,5 +50,22 @@ public class Library {
         List<Patron> out = new ArrayList<>(patrons.values());
         return Collections.unmodifiableList(out);
     }
+    
+    public Library copy() {
+        Library copy = new Library();
+
+        // Copy patrons (Map<Integer, Patron>)
+        for (Patron p : this.patrons.values()) {
+            copy.patrons.put(p.getId(), p.copy());
+        }
+
+        // Copy books (Map<Integer, Book>)
+        for (Book b : this.books.values()) {
+            copy.books.put(b.getId(), b.copy());
+        }
+
+        return copy;
+    }
+
 }
  

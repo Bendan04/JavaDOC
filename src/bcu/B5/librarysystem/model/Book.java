@@ -111,4 +111,15 @@ public class Book {
     public void returnToLibrary() {
         loan = null;
     }
+
+    public Book copy() {
+        return new Book(
+            this.getId(),
+            this.getTitle(),
+            this.getAuthor(),
+            this.getPublisher(),
+            this.getPublicationYear()
+        );
+    }
+
 }

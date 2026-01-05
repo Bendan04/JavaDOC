@@ -94,5 +94,14 @@ public class Patron {
 
         return sb.toString();
     }
+    public Patron copy() {
+        return new Patron(
+            this.getId(),
+            this.getName(),
+            this.getPhone(),
+            this.getEmail()
+        );
+    }
+
 }
  
