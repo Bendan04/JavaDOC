@@ -31,12 +31,7 @@ import javax.swing.*;
  * </p>
  */
 public class BorrowBookWindow extends JFrame implements ActionListener {
-
-	/**
-	 * BorrowBookWindow.
-	 *
-	 * @param mw = mainWindow that shares the library.
-	 */
+	
     private MainWindow mw; // reference to main window for accessing shared library state and UI refresh
 
     private JComboBox<Patron> patronDropdown = new JComboBox<>(); // displays available patrons for borrowing
@@ -45,6 +40,11 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
     private JButton borrowBtn = new JButton("Borrow");
     private JButton cancelBtn = new JButton("Cancel");
 
+	/**
+	 * BorrowBookWindow.
+	 *
+	 * @param mw = mainWindow that shares the library.
+	 */
     public BorrowBookWindow(MainWindow mw) {
         this.mw = mw;
         initialize();

@@ -25,12 +25,7 @@ import javax.swing.*;
  * </p>
  */
 public class DeletePatronWindow extends JFrame implements ActionListener {
-
-	/**
-	 * DeletePatronWindow.
-	 *
-	 * @param mw = mainWindow that shares the library.
-	 */
+	
     private MainWindow mw; // reference to the main application window
 
     private JComboBox<Patron> patronDropdown = new JComboBox<>();
@@ -38,6 +33,11 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
     private JButton deleteBtn = new JButton("Delete");
     private JButton cancelBtn = new JButton("Cancel");
 
+	/**
+	 * DeletePatronWindow.
+	 *
+	 * @param mw = mainWindow that shares the library.
+	 */
     public DeletePatronWindow(MainWindow mw) {
         this.mw = mw;
         initialize();

@@ -36,12 +36,7 @@ import bcu.B5.librarysystem.model.Book;
  * </p>
  */
 public class AddBookWindow extends JFrame implements ActionListener {
-
-	/**
-	 * AddBookWindow.
-	 * 
-	 * @param mw = mainWindow that shares the library.
-	 */
+	
     private MainWindow mw;
     private JTextField titleText = new JTextField();
     private JTextField authText = new JTextField();
@@ -51,6 +46,11 @@ public class AddBookWindow extends JFrame implements ActionListener {
     private JButton addBtn = new JButton("Add");
     private JButton cancelBtn = new JButton("Cancel");
 
+	/**
+	 * AddBookWindow.
+	 * 
+	 * @param mw = mainWindow that shares the library.
+	 */
     public AddBookWindow(MainWindow mw) {
         this.mw = mw;
         initialize();

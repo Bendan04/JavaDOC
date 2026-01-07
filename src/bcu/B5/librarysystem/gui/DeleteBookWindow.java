@@ -25,12 +25,7 @@ import javax.swing.*;
  * </p>
  */
 public class DeleteBookWindow extends JFrame implements ActionListener {
-
-	/**
-	 * DeleteBookWindow.
-	 *
-	 * @param mw = mainWindow that shares the library.
-	 */
+	
     private MainWindow mw; // reference to the main application window
 
     private JComboBox<Book> bookDropdown = new JComboBox<>();
@@ -38,6 +33,11 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
     private JButton deleteBtn = new JButton("Delete");
     private JButton cancelBtn = new JButton("Cancel");
 
+	/**
+	 * DeleteBookWindow.
+	 *
+	 * @param mw = mainWindow that shares the library.
+	 */
     public DeleteBookWindow(MainWindow mw) {
         this.mw = mw;
         initialize();

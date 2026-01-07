@@ -38,12 +38,7 @@ import bcu.B5.librarysystem.model.Library;
  */
 
 public class AddPatronWindow extends JFrame implements ActionListener {
-
-	/**
-	 * AddPatronWindow.
-	 * 
-	 * @param mw = mainWindow that shares the library.
-	 */
+	
     private MainWindow mw;
     private JTextField nameText = new JTextField();
     private JTextField phoneText = new JTextField();
@@ -52,6 +47,11 @@ public class AddPatronWindow extends JFrame implements ActionListener {
     private JButton addBtn = new JButton("Add");
     private JButton cancelBtn = new JButton("Cancel");
 
+	/**
+	 * AddPatronWindow.
+	 * 
+	 * @param mw = mainWindow that shares the library.
+	 */
     public AddPatronWindow(MainWindow mw) {
         this.mw = mw;
         initialize();
