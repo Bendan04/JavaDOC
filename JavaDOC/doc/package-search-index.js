@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"bcu.cmp5332.librarysystem.commands"},{"l":"bcu.cmp5332.librarysystem.data"},{"l":"bcu.cmp5332.librarysystem.gui"},{"l":"bcu.cmp5332.librarysystem.main"},{"l":"bcu.cmp5332.librarysystem.model"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"bcu.B5.librarysystem.gui"}];updateSearchResults();

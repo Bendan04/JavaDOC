@@ -18,12 +18,35 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.io.IOException;
+
+import bcu.B5.librarysystem.data.LibraryData;
+import bcu.B5.librarysystem.model.Book;
+
+/**
+ * Window that allows additional book's to be added to the library system.
+ * <p>
+ * This window allows users to enter book details and executes the {@link bcu.B5.librarysystem.commands.AddBook} command.
+ * After {@link bcu.B5.librarysystem.data.LibraryData} is executed and persisted in permanent storage.
+ * </p>
+ * <p>
+ * Corrupted saves will roll back all changes.
+ * </p>
+ */
 public class AddBookWindow extends JFrame implements ActionListener {
 
+	/**
+	 * AddBookWindow.
+	 * 
+	 * @param mw = mainWindow that shares the library.
+	 */
     private MainWindow mw;
     private JTextField titleText = new JTextField();
     private JTextField authText = new JTextField();
     private JTextField pubDateText = new JTextField();
+    private JTextField publisherText = new JTextField();
 
     private JButton addBtn = new JButton("Add");
     private JButton cancelBtn = new JButton("Cancel");
@@ -53,6 +76,8 @@ public class AddBookWindow extends JFrame implements ActionListener {
         topPanel.add(titleText);
         topPanel.add(new JLabel("Author : "));
         topPanel.add(authText);
+        topPanel.add(new JLabel("publisher : "));
+        topPanel.add(publisherText);
         topPanel.add(new JLabel("Publishing Date : "));
         topPanel.add(pubDateText);
 
@@ -72,7 +97,12 @@ public class AddBookWindow extends JFrame implements ActionListener {
         setVisible(true);
 
     }
-
+    
+    /**
+     * Handles button click events.
+     *
+     * @param ae the action event triggered by user interaction.
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addBtn) {
@@ -82,19 +112,44 @@ public class AddBookWindow extends JFrame implements ActionListener {
         }
 
     }
-
+    
+    /**
+     * Adds a new book to the library.
+     * <p>
+     * This method executes the add book command which attempts to add book to library.
+     * </p>
+     */
     private void addBook() {
+        List<Book> before = new ArrayList<>(mw.getLibrary().getBooks());
+
         try {
             String title = titleText.getText();
             String author = authText.getText();
             String publicationYear = pubDateText.getText();
-            // create and execute the AddBook Command
-            Command addBook = new AddBook(title, author, publicationYear);
+            String publisher = publisherText.getText();
+            Command addBook = new AddBook(title, author, publicationYear, publisher);
             addBook.execute(mw.getLibrary(), LocalDate.now());
+
+            // attempt to store changes
+            LibraryData.store(mw.getLibrary());
+
             // refresh the view with the list of books
             mw.displayBooks();
-            // hide (close) the AddBookWindow
+
             this.setVisible(false);
+
+        } catch (IOException ioEx) {
+            // roll back to previous state
+            mw.getLibrary().getBooks().clear();
+            mw.getLibrary().getBooks().addAll(before);
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Failed to save data to file.\nChanges were rolled back.\n\n" + ioEx.getMessage(),
+                "Storage Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
