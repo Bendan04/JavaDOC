@@ -20,23 +20,8 @@ import java.util.stream.Collectors;
 
 import javax.swing.*;
 
-/**
- * Window that allows a patron to borrow a book from the library.
- * <p>
- * The window displays lists of patrons and available books.
- * The borrow method is executed via the {@link BorrowBook} command.
- * </p>
- * <p>
- * Corrupted saves will roll back all changes.
- * </p>
- */
 public class BorrowBookWindow extends JFrame implements ActionListener {
 
-	/**
-	 * BorrowBookWindow.
-	 *
-	 * @param mw = mainWindow that shares the library.
-	 */
     private MainWindow mw; // reference to main window for accessing shared library state and UI refresh
 
     private JComboBox<Patron> patronDropdown = new JComboBox<>(); // displays available patrons for borrowing
@@ -84,11 +69,6 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    /**
-     * 
-     * Patrons sorted alphabetically.
-     * @param patrons = list of patrons from library system.
-     */
     private void populatePatronDropdown() {
         patronDropdown.removeAllItems(); // ensure dropdown reflects current library state
 
@@ -114,11 +94,6 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Handles button click events.
-     *
-     * @param ae the action event triggered by user interaction.
-     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == borrowBtn) {
@@ -128,12 +103,6 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Select book to borrow for patron.
-     * <p>
-     * The library state is backed up before any modifications.
-     * </p>
-     */
     private void borrowSelectedBook() {
 
         Patron patron = (Patron) patronDropdown.getSelectedItem(); 

@@ -18,19 +18,8 @@ import java.util.List;
 
 import javax.swing.*;
 
-/**
- * Window that allows users to perform a soft delete on books.
- * <p>
- * Only books that are not on loan may be deleted.
- * </p>
- */
 public class DeleteBookWindow extends JFrame implements ActionListener {
 
-	/**
-	 * DeleteBookWindow.
-	 *
-	 * @param mw = mainWindow that shares the library.
-	 */
     private MainWindow mw; // reference to the main application window
 
     private JComboBox<Book> bookDropdown = new JComboBox<>();
@@ -72,11 +61,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    /**
-     * 
-     * Non-deleted books sorted alphabetically.
-     * @param patrons = list of patrons from library system.
-     */
     private void populateDropdown() {
         bookDropdown.removeAllItems();
 
@@ -91,11 +75,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Handles button click events.
-     *
-     * @param ae the action event triggered by user interaction.
-     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == deleteBtn) {
@@ -105,12 +84,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Soft delete selected book.
-     * <p>
-     * The library state is backed up before any modifications.
-     * </p>
-     */
     private void deleteSelectedBook() {
 
         Book selected = (Book) bookDropdown.getSelectedItem();

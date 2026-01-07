@@ -18,19 +18,8 @@ import java.util.List;
 
 import javax.swing.*; 
 
-/**
- * Window that allows administrators to perform a soft delete on patrons.
- * <p>
- * Only patrons with no books on loan may be deleted.
- * </p>
- */
 public class DeletePatronWindow extends JFrame implements ActionListener {
 
-	/**
-	 * DeletePatronWindow.
-	 *
-	 * @param mw = mainWindow that shares the library.
-	 */
     private MainWindow mw; // reference to the main application window
 
     private JComboBox<Patron> patronDropdown = new JComboBox<>();
@@ -72,9 +61,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    /**
-     * Patrons sorted alphabetically.
-     */
     private void populateDropdown() {
         patronDropdown.removeAllItems();
 
@@ -88,11 +74,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Handles button click events.
-     *
-     * @param ae the action event triggered by user interaction.
-     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == deleteBtn) {
@@ -102,12 +83,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Soft delete selected patron.
-     * <p>
-     * The library state is backed up before any modifications.
-     * </p>
-     */
     private void deleteSelectedPatron() {
 
         Patron selected = (Patron) patronDropdown.getSelectedItem();
