@@ -27,8 +27,23 @@ import bcu.B5.librarysystem.main.LibraryException;
 import bcu.B5.librarysystem.model.Library;
 
 
+/**
+ * Window used to add a new patron to the library system.
+ * <p>
+ * Patron details are entered and validated before executing the {@link bcu.B5.librarysystem.commands.AddPatron} command.
+ * </p>
+ * <p>
+ * Corrupted saves will roll back all changes.
+ * </p>
+ */
+
 public class AddPatronWindow extends JFrame implements ActionListener {
 
+	/**
+	 * AddPatronWindow.
+	 * 
+	 * @param mw = mainWindow that shares the library.
+	 */
     private MainWindow mw;
     private JTextField nameText = new JTextField();
     private JTextField phoneText = new JTextField();
@@ -83,10 +98,21 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         
     }
     
+    /**
+     * Verify's the users input.
+     *
+     * @param email the email address to validate.
+     * @return true if the email contains basic required characters.
+     */
     private boolean validEmail(String email) {
         return email != null && email.contains("@") && email.contains("."); // Must contain @ and a .
     }
 
+    /**
+     * Handles button click events.
+     *
+     * @param ae the action event triggered by user interaction.
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addBtn) {
@@ -96,6 +122,12 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Adds a new patron to the library.
+     * <p>
+     * The library state is backed up before any modifications.
+     * </p>
+     */
     private void addPatron() {
 
         // Snapshot entire library (safe rollback)

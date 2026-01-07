@@ -26,11 +26,11 @@ public class LibraryData {
         return library;
     }
 
-    /**
-     * Stores the entire library to file storage.
-     * If any DataManager fails, an IOException is thrown
-     * and no partial success should be assumed by the caller.
-     */
+    /*
+    Stores the entire library to file storage.
+    If any DataManager fails, an IOException is thrown
+    and no partial success should be assumed by the caller.
+    */
     public static void store(Library library) throws IOException {
 
         try {
