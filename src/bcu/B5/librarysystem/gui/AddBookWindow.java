@@ -25,8 +25,23 @@ import java.io.IOException;
 import bcu.B5.librarysystem.data.LibraryData;
 import bcu.B5.librarysystem.model.Book;
 
+/**
+ * Window that allows additional book's to be added to the library system.
+ * <p>
+ * This window allows users to enter book details and executes the {@link bcu.B5.librarysystem.commands.AddBook} command.
+ * After {@link bcu.B5.librarysystem.data.LibraryData} is executed and persisted in permanent storage.
+ * </p>
+ * <p>
+ * Corrupted saves will roll back all changes.
+ * </p>
+ */
 public class AddBookWindow extends JFrame implements ActionListener {
 
+	/**
+	 * AddBookWindow.
+	 * 
+	 * @param mw = mainWindow that shares the library.
+	 */
     private MainWindow mw;
     private JTextField titleText = new JTextField();
     private JTextField authText = new JTextField();
@@ -82,7 +97,12 @@ public class AddBookWindow extends JFrame implements ActionListener {
         setVisible(true);
 
     }
-
+    
+    /**
+     * Handles button click events.
+     *
+     * @param ae the action event triggered by user interaction.
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addBtn) {
@@ -92,7 +112,13 @@ public class AddBookWindow extends JFrame implements ActionListener {
         }
 
     }
-
+    
+    /**
+     * Adds a new book to the library.
+     * <p>
+     * This method executes the add book command which attempts to add book to library.
+     * </p>
+     */
     private void addBook() {
         List<Book> before = new ArrayList<>(mw.getLibrary().getBooks());
 
