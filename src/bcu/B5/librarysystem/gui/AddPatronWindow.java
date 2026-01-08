@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,7 +37,7 @@ import bcu.B5.librarysystem.model.Library;
  * </p>
  */
 
-public class AddPatronWindow extends JFrame implements ActionListener {
+public class AddPatronWindow extends JDialog implements ActionListener {
 	
     private MainWindow mw;
     private JTextField nameText = new JTextField();
@@ -53,8 +53,10 @@ public class AddPatronWindow extends JFrame implements ActionListener {
 	 * @param mw = mainWindow that shares the library.
 	 */
     public AddPatronWindow(MainWindow mw) {
+        super(mw, "Add a new Patron", true); // Modal (blocks interaction between the main window and sets the main window as the parent. https://www.geeksforgeeks.org/java/super-and-this-keywords-in-java/)
         this.mw = mw;
         initialize();
+        setVisible(true);
     }
 
     /**
@@ -67,8 +69,6 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         } catch (Exception ex) {
 
         }
-
-        setTitle("Add a New Patron");
 
         setSize(300, 200);
 
@@ -93,8 +93,6 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         this.getContentPane().add(topPanel, BorderLayout.CENTER);
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         setLocationRelativeTo(mw);
-        
-        setVisible(true);
         
     }
     
@@ -130,41 +128,30 @@ public class AddPatronWindow extends JFrame implements ActionListener {
      */
     private void addPatron() {
 
-        // Snapshot entire library (safe rollback)
-        Library before = mw.getLibrary().copy();
+        Library before = mw.getLibrary().copy(); // Save before any modifications.
 
         try {
             String name = nameText.getText();
             String phone = phoneText.getText();
             String email = emailText.getText();
 
-            if (!validEmail(email)) {
-                JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Invalid Email", JOptionPane.ERROR_MESSAGE);
+            if (!validEmail(email)) {JOptionPane.showMessageDialog(this, "Please enter a valid email address. (@ and . required)", "Invalid Email", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             Command addPatron = new AddPatron(name, phone, email);
             addPatron.execute(mw.getLibrary(), LocalDate.now());
 
-            // Attempt to persist
-            LibraryData.store(mw.getLibrary());
+            LibraryData.store(mw.getLibrary()); // Refresh the view with the list of books.
 
             mw.showPatrons();
             this.setVisible(false);
 
         } catch (IOException ioEx) {
-            // Rollback entire system state
             mw.setLibrary(before);
-
-            JOptionPane.showMessageDialog(
-                this,
-                "Failed to save data to file.\nChanges were rolled back.",
-                "Storage Error",
-                JOptionPane.ERROR_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(mw, "Failed to save data to file.\nChanges were rolled back.", "Storage Error", JOptionPane.ERROR_MESSAGE);
         } catch (LibraryException ex) {
-            JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mw, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

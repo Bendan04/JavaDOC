@@ -19,11 +19,30 @@ public class ReturnBook implements Command {
 
     @Override
     public void execute(Library library, LocalDate currentDate) throws LibraryException {
+
         Patron patron = library.getPatronByID(patronId);
         Book book = library.getBookByID(bookId);
 
+        if (!book.isOnLoan()) {
+            throw new LibraryException("This book is not currently on loan.");
+        }
+
+        // Capture loan BEFORE return
+        var loan = book.getLoan();
+
+        try {
+            // Write to history first (roll back if this fails)
+            bcu.B5.librarysystem.data.HistoryDataManager.StoreData(loan);
+        } catch (java.io.IOException ioEx) {
+            throw new LibraryException(
+                "Failed to write loan history. Return cancelled."
+            );
+        }
+
+        // Now perform the return
         patron.returnBook(book);
 
         System.out.println("Book returned successfully.");
     }
+
 }

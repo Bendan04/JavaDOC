@@ -35,6 +35,9 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenuItem booksDel;	
     private JMenuItem booksIssue;
     private JMenuItem booksReturn;
+    private JMenuItem booksRenew;
+    
+    private JMenuItem showHistory;
 
     private JMenuItem memView;
     private JMenuItem memAdd;
@@ -89,11 +92,13 @@ public class MainWindow extends JFrame implements ActionListener {
         booksDel = new JMenuItem("Delete");
         booksIssue = new JMenuItem("Issue");
         booksReturn = new JMenuItem("Return");
+        booksRenew = new JMenuItem("Renew");
         booksMenu.add(booksView);
         booksMenu.add(booksAdd);
         booksMenu.add(booksDel);
         booksMenu.add(booksIssue);
         booksMenu.add(booksReturn);
+        booksMenu.add(booksRenew);
         for (int i = 0; i < booksMenu.getItemCount(); i++) {
             booksMenu.getItem(i).addActionListener(this);
         }
@@ -105,14 +110,17 @@ public class MainWindow extends JFrame implements ActionListener {
         memView = new JMenuItem("View");
         memAdd = new JMenuItem("Add");
         memDel = new JMenuItem("Delete");
+        showHistory = new JMenuItem("Loan History");
 
         membersMenu.add(memView);
         membersMenu.add(memAdd);
         membersMenu.add(memDel);
+        membersMenu.add(showHistory);
 
         memView.addActionListener(this);
         memAdd.addActionListener(this);
         memDel.addActionListener(this);
+        showHistory.addActionListener(this);
 
         setSize(800, 500);
 
@@ -151,8 +159,11 @@ public class MainWindow extends JFrame implements ActionListener {
             new BorrowBookWindow(this);
             
         } else if (ae.getSource() == booksReturn) {
+            new ReturnBookWindow(this);
             
-            
+        } else if (ae.getSource() == booksRenew) {
+        	new RenewBookWindow(this);
+        	
         } else if (ae.getSource() == memView) { // Mem is patrons
             displayPatrons();
             
@@ -162,6 +173,8 @@ public class MainWindow extends JFrame implements ActionListener {
         } else if (ae.getSource() == memDel) {
             new DeletePatronWindow(this);
 
+        } else if (ae.getSource() == showHistory) {
+            new ShowLoanHistoryWindow(this);
         }
     }
     

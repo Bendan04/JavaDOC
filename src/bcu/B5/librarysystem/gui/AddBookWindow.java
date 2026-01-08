@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,7 +35,7 @@ import bcu.B5.librarysystem.model.Book;
  * Corrupted saves will roll back all changes.
  * </p>
  */
-public class AddBookWindow extends JFrame implements ActionListener {
+public class AddBookWindow extends JDialog implements ActionListener {
 	
     private MainWindow mw;
     private JTextField titleText = new JTextField();
@@ -52,8 +52,10 @@ public class AddBookWindow extends JFrame implements ActionListener {
 	 * @param mw = mainWindow that shares the library.
 	 */
     public AddBookWindow(MainWindow mw) {
+        super(mw, "Add a new Book", true);
         this.mw = mw;
         initialize();
+        setVisible(true);
     }
 
     /**
@@ -66,8 +68,6 @@ public class AddBookWindow extends JFrame implements ActionListener {
         } catch (Exception ex) {
 
         } 
-
-        setTitle("Add a New Book");
 
         setSize(300, 200);
         JPanel topPanel = new JPanel();
@@ -94,8 +94,6 @@ public class AddBookWindow extends JFrame implements ActionListener {
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         setLocationRelativeTo(mw);
 
-        setVisible(true);
-
     }
     
     /**
@@ -116,7 +114,7 @@ public class AddBookWindow extends JFrame implements ActionListener {
     /**
      * Adds a new book to the library.
      * <p>
-     * This method executes the add book command which attempts to add book to library.
+     * This method executes the {@link bcu.B5.librarysystem.commands.AddBook} command which attempts to add book to library.
      * </p>
      */
     private void addBook() {
@@ -138,21 +136,29 @@ public class AddBookWindow extends JFrame implements ActionListener {
 
             this.setVisible(false);
 
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(
+                mw,
+                ex.getMessage(),
+                "Invalid Data",
+                JOptionPane.ERROR_MESSAGE);
+
         } catch (IOException ioEx) {
             // roll back to previous state
             mw.getLibrary().getBooks().clear();
             mw.getLibrary().getBooks().addAll(before);
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Failed to save data to file.\nChanges were rolled back.\n\n" + ioEx.getMessage(),
                 "Storage Error",
                 JOptionPane.ERROR_MESSAGE
             );
 
         } catch (LibraryException ex) {
-            JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mw, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
 }
+ 

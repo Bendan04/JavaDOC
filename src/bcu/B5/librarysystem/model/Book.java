@@ -82,10 +82,10 @@ public class Book {
     public String getDetailsLong() {
         return "Book #" + id + "\n"
              + "Title: " + title + "\n"
-             + "Author: " + author + "\n"
+             + "Author: " + author + "\n" 
              + "Year: " + publicationYear + "\n"
              + "Publisher: " + publisher + "\n"
-             + "Status: " + getStatus();
+             + "Status: " + getStatus(); // Status of if its on loan or not
     }
     
     public boolean isOnLoan() {
