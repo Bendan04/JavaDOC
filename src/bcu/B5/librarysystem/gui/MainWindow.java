@@ -151,7 +151,7 @@ public class MainWindow extends JFrame implements ActionListener {
             new BorrowBookWindow(this);
             
         } else if (ae.getSource() == booksReturn) {
-            
+            new ReturnBookWindow(this);
             
         } else if (ae.getSource() == memView) { // Mem is patrons
             displayPatrons();

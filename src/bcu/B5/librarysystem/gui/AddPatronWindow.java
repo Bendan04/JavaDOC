@@ -130,7 +130,7 @@ public class AddPatronWindow extends JFrame implements ActionListener {
      */
     private void addPatron() {
 
-        // Snapshot entire library (safe rollback)
+        // Snapshot entire library
         Library before = mw.getLibrary().copy();
 
         try {
@@ -146,14 +146,14 @@ public class AddPatronWindow extends JFrame implements ActionListener {
             Command addPatron = new AddPatron(name, phone, email);
             addPatron.execute(mw.getLibrary(), LocalDate.now());
 
-            // Attempt to persist
+            // refresh the view with the list of books
             LibraryData.store(mw.getLibrary());
 
             mw.showPatrons();
             this.setVisible(false);
 
         } catch (IOException ioEx) {
-            // Rollback entire system state
+            // 
             mw.setLibrary(before);
 
             JOptionPane.showMessageDialog(
