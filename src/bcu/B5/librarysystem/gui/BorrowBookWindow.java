@@ -30,7 +30,7 @@ import javax.swing.*;
  * Corrupted saves will roll back all changes.
  * </p>
  */
-public class BorrowBookWindow extends JFrame implements ActionListener {
+public class BorrowBookWindow extends JDialog implements ActionListener {
 	
     private MainWindow mw; // reference to main window for accessing shared library state and UI refresh
 
@@ -46,10 +46,12 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
 	 * @param mw = mainWindow that shares the library.
 	 */
     public BorrowBookWindow(MainWindow mw) {
+        super(mw, "Borrow Book", true); // ← true = modal
         this.mw = mw;
         initialize();
         populatePatronDropdown();
         populateBookDropdown();
+        setVisible(true);
     }
 
     private void initialize() {
@@ -58,7 +60,6 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // match OS look-and-feel for consistency
         } catch (Exception ex) {} // look-and-feel failure is non-critical
 
-        setTitle("Borrow Book");
         setSize(450, 200);
 
         JPanel topPanel = new JPanel(new GridLayout(2, 2, 10, 10));
@@ -81,7 +82,6 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(mw);
-        setVisible(true);
     }
 
     /**
@@ -141,7 +141,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
 
         if (patron == null || book == null) { 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Please select both a patron and a book.",
                 "Selection Required",
                 JOptionPane.ERROR_MESSAGE
@@ -162,7 +162,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
             this.setVisible(false);
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Book borrowed successfully.",
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE
@@ -172,7 +172,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
             mw.setLibrary(snapshot); // restore previous state if persistence fails
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Failed to save data.\nBorrow operation was rolled back.",
                 "Storage Error",
                 JOptionPane.ERROR_MESSAGE
@@ -180,7 +180,7 @@ public class BorrowBookWindow extends JFrame implements ActionListener {
 
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 ex.getMessage(), // 
                 "Error",
                 JOptionPane.ERROR_MESSAGE

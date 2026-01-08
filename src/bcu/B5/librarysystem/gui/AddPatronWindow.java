@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,7 +37,7 @@ import bcu.B5.librarysystem.model.Library;
  * </p>
  */
 
-public class AddPatronWindow extends JFrame implements ActionListener {
+public class AddPatronWindow extends JDialog implements ActionListener {
 	
     private MainWindow mw;
     private JTextField nameText = new JTextField();
@@ -53,8 +53,10 @@ public class AddPatronWindow extends JFrame implements ActionListener {
 	 * @param mw = mainWindow that shares the library.
 	 */
     public AddPatronWindow(MainWindow mw) {
+        super(mw, "Add a new Patron", true); // ← true = modal
         this.mw = mw;
         initialize();
+        setVisible(true);
     }
 
     /**
@@ -67,8 +69,6 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         } catch (Exception ex) {
 
         }
-
-        setTitle("Add a New Patron");
 
         setSize(300, 200);
 
@@ -93,8 +93,6 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         this.getContentPane().add(topPanel, BorderLayout.CENTER);
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         setLocationRelativeTo(mw);
-        
-        setVisible(true);
         
     }
     
@@ -157,14 +155,14 @@ public class AddPatronWindow extends JFrame implements ActionListener {
             mw.setLibrary(before);
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Failed to save data to file.\nChanges were rolled back.",
                 "Storage Error",
                 JOptionPane.ERROR_MESSAGE
             );
 
         } catch (LibraryException ex) {
-            JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mw, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -24,7 +24,7 @@ import javax.swing.*;
  * Only books that are not on loan may be deleted.
  * </p>
  */
-public class DeleteBookWindow extends JFrame implements ActionListener {
+public class DeleteBookWindow extends JDialog implements ActionListener {
 	
     private MainWindow mw; // reference to the main application window
 
@@ -39,9 +39,11 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
 	 * @param mw = mainWindow that shares the library.
 	 */
     public DeleteBookWindow(MainWindow mw) {
+        super(mw, "Delete Book", true); // ← true = modal
         this.mw = mw;
         initialize();
         populateDropdown();
+        setVisible(true);
     }
 
     private void initialize() {
@@ -50,7 +52,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {} // ignore look-and-feel errors
 
-        setTitle("Delete Book");
         setSize(500, 160);
 
         JPanel topPanel = new JPanel(new GridLayout(1, 2, 10, 10));
@@ -69,7 +70,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(mw);
-        setVisible(true);
     }
 
     /**
@@ -117,7 +117,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
 
         if (selected == null) {
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Please select a book to delete.",
                 "No Selection",
                 JOptionPane.ERROR_MESSAGE
@@ -137,7 +137,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
             this.setVisible(false);
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Book deleted successfully.",
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE
@@ -147,7 +147,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
             mw.setLibrary(snapshot); // rollback on storage failure
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Failed to save data.\nDeletion was rolled back.",
                 "Storage Error",
                 JOptionPane.ERROR_MESSAGE
@@ -155,7 +155,7 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
 
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 ex.getMessage(),
                 "Error",
                 JOptionPane.ERROR_MESSAGE

@@ -25,7 +25,7 @@ import javax.swing.*;
  * This window delegates all business logic to the ReturnBook command.
  * Changes are persisted immediately and rolled back if saving fails.
  */
-public class ReturnBookWindow extends JFrame implements ActionListener {
+public class ReturnBookWindow extends JDialog implements ActionListener {
 
     private MainWindow mw;
 
@@ -44,9 +44,11 @@ public class ReturnBookWindow extends JFrame implements ActionListener {
      * @param mw main application window
      */
     public ReturnBookWindow(MainWindow mw) {
+        super(mw, "Return Book", true); // ← true = modal
         this.mw = mw;
         initialize();
         populatePatronDropdown();
+        setVisible(true);
     }
 
     /**
@@ -58,7 +60,6 @@ public class ReturnBookWindow extends JFrame implements ActionListener {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {}
 
-        setTitle("Return Book");
         setSize(450, 220);
 
         JPanel topPanel = new JPanel(new GridLayout(3, 2, 10, 10));
@@ -83,7 +84,6 @@ public class ReturnBookWindow extends JFrame implements ActionListener {
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(mw);
-        setVisible(true);
     }
 
     /**
@@ -145,7 +145,7 @@ public class ReturnBookWindow extends JFrame implements ActionListener {
 
         if (patron == null || book == null) {
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Please select both a patron and a book.",
                 "Selection Required",
                 JOptionPane.ERROR_MESSAGE
@@ -168,7 +168,7 @@ public class ReturnBookWindow extends JFrame implements ActionListener {
             this.setVisible(false);
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Book returned successfully.",
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE
@@ -179,7 +179,7 @@ public class ReturnBookWindow extends JFrame implements ActionListener {
             mw.setLibrary(snapshot);
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Failed to save data.\nReturn was rolled back.",
                 "Storage Error",
                 JOptionPane.ERROR_MESSAGE
@@ -187,7 +187,7 @@ public class ReturnBookWindow extends JFrame implements ActionListener {
 
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 ex.getMessage(),
                 "Error",
                 JOptionPane.ERROR_MESSAGE

@@ -24,7 +24,7 @@ import javax.swing.*;
  * Only patrons with no books on loan may be deleted.
  * </p>
  */
-public class DeletePatronWindow extends JFrame implements ActionListener {
+public class DeletePatronWindow extends JDialog implements ActionListener {
 	
     private MainWindow mw; // reference to the main application window
 
@@ -39,9 +39,11 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 	 * @param mw = mainWindow that shares the library.
 	 */
     public DeletePatronWindow(MainWindow mw) {
+        super(mw, "Delete Patron", true); // ← true = modal
         this.mw = mw;
         initialize();
         populateDropdown();
+        setVisible(true);
     }
 
     private void initialize() {
@@ -50,7 +52,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {} // ignore look-and-feel errors
 
-        setTitle("Delete Patron");
         setSize(500, 160);
 
         JPanel topPanel = new JPanel(new GridLayout(1, 2, 10, 10));
@@ -69,7 +70,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(mw);
-        setVisible(true);
     }
 
     /**
@@ -114,7 +114,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 
         if (selected == null) {
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Please select a patron to delete.",
                 "No Selection",
                 JOptionPane.ERROR_MESSAGE
@@ -134,7 +134,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
             this.setVisible(false);
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Patron deleted successfully.",
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE
@@ -144,7 +144,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
             mw.setLibrary(snapshot); // rollback on storage failure
 
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 "Failed to save data.\nDeletion was rolled back.",
                 "Storage Error",
                 JOptionPane.ERROR_MESSAGE
@@ -152,7 +152,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(
-                this,
+                mw,
                 ex.getMessage(),
                 "Error",
                 JOptionPane.ERROR_MESSAGE
